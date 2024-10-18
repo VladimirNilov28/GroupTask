@@ -1,14 +1,20 @@
 package sprint;
 
-public class AtBashTool{
+public class AtBashTool {
+    public static void main(String[] args) {}
 
+    public static InputData getInput() {}
 
-    public String encryptAtBash(String input){
+    
+
+    public static String encryptAtbash(String s) {
 
     }
 
-    public String decryptAtBash(String input){
+    public static String decryptRot13(String s) {}
 
+    public static String decryptAtbash(String s) {
+        
     }
     
 }
