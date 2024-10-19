@@ -1,6 +1,6 @@
 package sprint;
 
-public class AtBashTool {
+public class AtBashTool{
     //public static void main(String[] args) {}
 
     //public static InputData getInput() {}
