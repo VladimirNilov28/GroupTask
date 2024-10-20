@@ -9,7 +9,7 @@ public interface CypherUI{
     void selectOperation();   // Выбор операции
 
     void selectCypher();      // Выбор типа шифрования
-    
+
     void processMessage();    // Обработка сообщения
 
 

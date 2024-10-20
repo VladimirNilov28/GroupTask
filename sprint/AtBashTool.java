@@ -9,7 +9,7 @@ public class AtBashTool{
 
     public static String encryptAtbash(String s) {
 
-        if(s == null || s.isEmpty() ){return "Nothing to encrypt. \nPlease input some letters and try agian.";}
+        //if(s == null || s.isEmpty() ){return "Nothing to encrypt. \nPlease input some letters and try agian.";}
 
         StringBuilder encrypt = new StringBuilder(s);
 
@@ -39,7 +39,7 @@ public class AtBashTool{
 
 
         }
-        return encrypt.toString();
+        return encrypt.toString().trim();
     }
 
 
@@ -76,7 +76,7 @@ public class AtBashTool{
 
 
         }
-        return encrypt.toString();
+        return encrypt.toString().trim();
         
     }
     

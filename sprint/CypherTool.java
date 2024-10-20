@@ -1,7 +1,6 @@
 package sprint;
 
 import java.util.Scanner;
-import sprint.AtBashTool;
 
 
 
@@ -9,24 +8,33 @@ import sprint.AtBashTool;
 public class CypherTool implements CypherUI {
     private int operation;
     private int cypher;
+    String message;
+    Scanner scanner = new Scanner(System.in);
+    AtBashTool atBashTool = new AtBashTool();
+    CaesarTool caesarTool = new CaesarTool();
+    Rot13Tool rot13Tool = new Rot13Tool();
+
+
 
     @Override
     public void selectOperation() {
 
-        Scanner scanner = new Scanner(System.in);
         boolean validInput = false;
         while(!validInput){
             try {
-                System.out.println("Select operation:\n" + "1. Encrypt\n" + "2. Decrypt");
+                System.out.println("""
+                                   \nSelect operation:
+                                   1. Encrypt
+                                   2. Decrypt""");
                 operation = scanner.nextInt();
                 if(operation == 1 || operation == 2){
                     validInput = true;
                 }
                 else{
-                    System.out.println("Invalid input. Please enter a number (1 or 2).");
+                    System.out.println("\nInvalid input. Please enter a number (1 or 2).");
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please enter a number (1 or 2).");
+                System.out.println("\nInvalid input. Please enter a number (1 or 2).");
             }
         }
 
@@ -47,20 +55,24 @@ public class CypherTool implements CypherUI {
     // Остальные методы интерфейса
     @Override
     public void selectCypher() {
-        Scanner scanner = new Scanner(System.in);
         boolean validInput = false;
         while(!validInput){
             try {
-                System.out.println("Select cypher:\n" + "1. ROT13\n" + "2. AtBash" + "3. ");
+                System.out.println("""
+                                   \nSelect cypher:
+                                   1. ROT13
+                                   2. AtBash3.
+                                   3. CAESAR 
+                                   """);
                 cypher = scanner.nextInt();
-                if(cypher == 1 || cypher == 2){
+                if(cypher == 1 || cypher == 2 || cypher == 3){
                     validInput = true;
                 }
                 else{
-                    System.out.println("Invalid input. Please enter a number (1 or 2 or 3).");
+                    System.out.println("\nInvalid input. Please enter a number (1 or 2 or 3).");
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please enter a number (1 or 2 or 3).");
+                System.out.println("\nInvalid input. Please enter a number (1 or 2 or 3).");
             }
         }
     }
@@ -71,33 +83,79 @@ public class CypherTool implements CypherUI {
 
     @Override
     public void processMessage() {
-        Scanner scanner = new Scanner(System.in);   
         boolean validInput = false;
-        String message = new String();
-        AtBashTool atBashTool = new AtBashTool();
+        
         while (!validInput) {
-            System.out.println("Enter the message:");
+            System.out.println("\nEnter the message:");
             message = scanner.nextLine();
             
-            if (message == null || message.trim().isEmpty()) {
-                System.out.println("Invalid input. Please enter the message correctly.");
+            if (message == null || message.trim().isEmpty() || message.matches("\\d+")) {
+                System.out.println("\nInvalid input. Please enter the message correctly.");
             } else {
                 validInput = true; 
             }
         }
-        if(operation == 1 && cypher == 1){        //atBashTool
-            message = AtBashTool.
-            System.out.println(message);
+
+
+        if(cypher == 1){
+            if (operation == 1) {
+                message = Rot13Tool.encryptRot13(message.trim());
+                System.out.println("\nEncrypted message (ROT13):\n" + message);
+            }
+
+            else{
+                message = Rot13Tool.decrypRot13(message.trim());
+                System.out.println("\nDecrypted message (ROT13):\n" + message);
+            }
         }
-        else if(operation == 2 && cypher == 1){     //ROT13
+
+        else if(cypher == 2){
+            if (operation == 1) {
+                message = AtBashTool.encryptAtbash(message.trim());
+                System.out.println("\nEncrypted message (ATBASH):\n" + message);
+            }
+
+            else{
+                message = AtBashTool.decryptAtbash(message.trim());
+                System.out.println("\nDecrypted message (ATBASH):\n" + message);
+            }
 
         }
-        else if(operation == 1 && operation == 2){           //our
+
+        else {
+            int shift = 0;
+            boolean validShiftInput = false;
+            while(!validShiftInput){
+                try {
+                    System.out.println("\nPlease, enter shift for CAESAR (use numbers 1 - 30):\n");
+                    shift = scanner.nextInt();
+                    if(shift >= 1 && shift <=30){
+                        validShiftInput = true;
+                    }
+                    else{
+                        System.out.println("\nInvalid input. Please enter a number from 1 - 30.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("\nInvalid input. Please enter a number from 1 - 30.");
+                }
+            } 
+
+            if (operation == 1) {
+
+                message = CaesarTool.encrypt(message.trim(), shift);
+                System.out.println("\nEncrypted message (CAESAR):\n" + message);
+            }
+
+            else{        
+                       
+                message = CaesarTool.decrypt(message.trim(), shift);
+                System.out.println("\nDecrypted message (CAESAR):\n" + message);
+            }
 
         }
-        else if(){
+        
 
-        }
+
 
 
         // Просить ввести сообщение. 
